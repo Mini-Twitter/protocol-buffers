@@ -15,6 +15,7 @@ service UserService {
   rpc Follow(Ids) returns (Void);
   rpc UnFollow(Ids) returns (Void);
   rpc PostAdd(Id) returns (Void);
+  rpc ListOfFollowing(Id) returns (Followings);
   rpc PostDelete(Id) returns (Void);
   rpc DeleteUser(Id) returns (Void);
 }
@@ -121,4 +122,8 @@ message URL {
 message Ids {
   string follower_id = 1;
   string following_id = 2;
+}
+
+message Followings {
+  repeated string Ids =1;
 }
