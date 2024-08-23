@@ -12,8 +12,6 @@ service UserService {
   rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
   rpc ChangeProfileImage(URL) returns (Void);
   rpc FetchUsers(Filter) returns (UserResponses);
-  rpc Follow(Ids) returns (Void);
-  rpc UnFollow(Ids) returns (Void);
   rpc PostAdd(Id) returns (Void);
   rpc ListOfFollowing(Id) returns (Followings);
   rpc ListOfFollowers(Id) returns (Followers);
@@ -118,6 +116,7 @@ message ChangePasswordResponse {
 
 message URL {
   string url = 1;
+  string user_id =2;
 }
 
 message Ids {
@@ -129,8 +128,12 @@ message Followings {
   repeated string Ids =1;
 }
 
-message Followers {
-  string first_name = 1;
-  string last_name = 2;
+message Follower {
+  string user_id = 1;
+  string email = 2;
   string username = 3;
+}
+
+message Followers {
+  repeated Follower followers = 1;
 }
