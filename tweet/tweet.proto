@@ -15,13 +15,6 @@ service TweetService {
   rpc RecommendTweets(UserId) returns (Tweets);
   rpc GetNewTweets(UserId) returns (Tweets);
 
-  //subscribe
-  rpc Follow(FollowReq) returns (FollowRes);
-  rpc Unfollow(FollowReq) returns (DFollowRes);
-  rpc GetUserFollowers(UserId) returns (Count);
-  rpc GetUserFollows(UserId) returns (Count);
-  rpc MostPopularUser(Void) returns (User);
-
   // likes
   rpc AddLike(LikeReq) returns (LikeRes);
   rpc DeleteLIke(LikeReq) returns (DLikeRes);
@@ -96,24 +89,6 @@ message TweetFilter {
 }
 
 // Follows ---------------------------------------------------------------
-
-message FollowReq {
-  string followerId = 1;
-  string followingId = 2;
-}
-
-message FollowRes {
-  string followerId = 1;
-  string followingId = 2;
-  string followedAt = 3;
-}
-
-message DFollowRes {
-  string followerId = 1;
-  string followingId = 2;
-  string unfollowedAt = 3;
-}
-
 message Count {
   string description = 1;
   int64 count = 2;
@@ -121,18 +96,6 @@ message Count {
 
 message Void {}
 
-message User {
-  string user_id = 1;
-  string first_name = 2;
-  string username = 3;
-  string bio = 4;
-  string profile_image = 5;
-  int32 followers_count = 6;
-  int32 following_count = 7;
-  int32 posts_count = 8;
-  string created_at = 9;
-  string updated_at = 10;
-}
 
 // likes -------------------------------------------------------------------
 
