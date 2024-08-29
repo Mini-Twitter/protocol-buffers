@@ -88,16 +88,16 @@ message TweetFilter {
   string title = 4;
 }
 
-// Follows ---------------------------------------------------------------
+
+
+// likes -------------------------------------------------------------------
+
 message Count {
   string description = 1;
   int64 count = 2;
 }
 
 message Void {}
-
-
-// likes -------------------------------------------------------------------
 
 message LikeReq {
   string userId = 1;
