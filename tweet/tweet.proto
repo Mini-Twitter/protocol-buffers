@@ -5,7 +5,7 @@ package tweet;
 option go_package = "genproto/tweet";
 
 service TweetService {
-  // tweets
+  // Tweets
   rpc PostTweet(Tweet) returns (TweetResponse);
   rpc UpdateTweet(UpdateATweet) returns (TweetResponse);
   rpc AddImageToTweet(Url) returns (Message);
@@ -15,38 +15,41 @@ service TweetService {
   rpc RecommendTweets(UserId) returns (Tweets);
   rpc GetNewTweets(UserId) returns (Tweets);
 
-  //subscribe
+  // Subscribe
   rpc Follow(FollowReq) returns (FollowRes);
   rpc Unfollow(FollowReq) returns (DFollowRes);
   rpc GetUserFollowers(UserId) returns (Count);
   rpc GetUserFollows(UserId) returns (Count);
   rpc MostPopularUser(Void) returns (User);
 
-  // likes
+  // Likes
   rpc AddLike(LikeReq) returns (LikeRes);
-  rpc DeleteLIke(LikeReq) returns (DLikeRes);
+  rpc DeleteLike(LikeReq) returns (DLikeRes);
   rpc GetUserLikes(UserId) returns (TweetTitles);
   rpc GetCountTweetLikes(TweetId) returns (Count);
   rpc MostLikedTweets(Void) returns (Tweet);
 
-  // comments
+  // Comments
   rpc PostComment(Comment) returns (CommentRes);
   rpc UpdateComment(UpdateAComment) returns (CommentRes);
   rpc DeleteComment(CommentId) returns (Message);
   rpc GetComment(CommentId) returns (Comment);
   rpc GetAllComments(CommentFilter) returns (Comments);
   rpc GetUserComments(UserId) returns (Comments);
-  rpc AddLikeToComment(UserId) returns (Message);
-  rpc DeleteLikeComment(UserId) returns (Message);
+  rpc AddLikeToComment(CommentLikeReq) returns (Message);
+  rpc DeleteLikeComment(CommentLikeReq) returns (Message);
 }
 
-// tweet -------------------------------------------------
+// Tweet Messages
 message Tweet {
-  string userId = 1;
-  string hashtag = 2;
-  string title = 3;
-  string content = 4;
-  string imageUrl = 5;
+  string id = 1;
+  string userId = 2;
+  string hashtag = 3;
+  string title = 4;
+  string content = 5;
+  string imageUrl = 6;
+  string createdAt = 7;
+  int64 likeCount = 8;
 }
 
 message TweetResponse {
@@ -61,13 +64,15 @@ message TweetResponse {
 }
 
 message UpdateATweet {
-  string hashtag = 1;
-  string title = 2;
-  string content = 3;
+  string id = 1;
+  string hashtag = 2;
+  string title = 3;
+  string content = 4;
 }
 
 message Url {
-  string url = 1;
+  string tweetId = 1;
+  string url = 2;
 }
 
 message Message {
@@ -95,8 +100,7 @@ message TweetFilter {
   string title = 4;
 }
 
-// Follows ---------------------------------------------------------------
-
+// Follow Messages
 message FollowReq {
   string followerId = 1;
   string followingId = 2;
@@ -115,27 +119,25 @@ message DFollowRes {
 }
 
 message Count {
-  string description = 1;
-  int64 count = 2;
+  int64 count = 1;
 }
 
 message Void {}
 
 message User {
-  string user_id = 1;
-  string first_name = 2;
+  string userId = 1;
+  string firstName = 2;
   string username = 3;
   string bio = 4;
-  string profile_image = 5;
-  int32 followers_count = 6;
-  int32 following_count = 7;
-  int32 posts_count = 8;
-  string created_at = 9;
-  string updated_at = 10;
+  string profileImage = 5;
+  int32 followersCount = 6;
+  int32 followingCount = 7;
+  int32 postsCount = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
 }
 
-// likes -------------------------------------------------------------------
-
+// Like Messages
 message LikeReq {
   string userId = 1;
   string tweetId = 2;
@@ -144,39 +146,41 @@ message LikeReq {
 message LikeRes {
   string userId = 1;
   string tweetId = 2;
-  string LikedAt = 3;
+  string likedAt = 3;
 }
 
 message DLikeRes {
   string userId = 1;
   string tweetId = 2;
-  string UnlikedAt = 3;
+  string unlikedAt = 3;
 }
 
 message TweetTitles {
-  repeated string tweetTitles = 1;
+  repeated string titles = 1;
 }
 
-// comments ---------------------------------------------------------
-
+// Comment Messages
 message Comment {
-  string userId = 1;
-  string tweetId = 2;
-  string context = 3;
+  string id = 1;
+  string userId = 2;
+  string tweetId = 3;
+  string content = 4;
+  int64 like_count = 5;
 }
 
 message CommentRes {
   string id = 1;
   string userId = 2;
   string tweetId = 3;
-  string context = 4;
+  string content = 4;
   int64 likeCount = 5;
-  string createAt = 6;
+  string createdAt = 6;
   string updatedAt = 7;
 }
 
 message UpdateAComment {
-  string content = 1;
+  string id = 1;
+  string content = 2;
 }
 
 message CommentId {
@@ -189,5 +193,9 @@ message CommentFilter {
 }
 
 message Comments {
-  repeated Comment comments = 1;
+  repeated CommentRes comments = 1;
+}
+
+message CommentLikeReq {
+  string commentId = 1;
 }
