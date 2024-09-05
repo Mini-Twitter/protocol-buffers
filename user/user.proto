@@ -154,10 +154,10 @@ message Ids {
 }
 
 message Followings {
-  repeated string Ids =1;
+  repeated string following =1;
 }
 
 
 message Followers {
-  repeated string Ids = 1;
+  repeated string followers = 1;
 }
