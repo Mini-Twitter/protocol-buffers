@@ -158,12 +158,7 @@ message Followings {
   repeated string Ids =1;
 }
 
-message Follower {
-  string user_id = 1;
-  string email = 2;
-  string username = 3;
-}
 
 message Followers {
-  repeated Follower followers = 1;
+  repeated string Ids = 1;
 }
