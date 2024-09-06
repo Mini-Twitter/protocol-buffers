@@ -14,7 +14,7 @@ service TweetService {
   rpc GetAllTweets(TweetFilter) returns (Tweets);
   rpc RecommendTweets(UserId) returns (Tweets);
   rpc GetNewTweets(UserId) returns (Tweets);
-  rpc ReTweet(ReTweetReq) returns (ReTweetRes);
+  rpc ReTweet(ReTweetReq) returns (Message);
 
   // Subscribe
   rpc Follow(FollowReq) returns (FollowRes);
@@ -43,24 +43,11 @@ service TweetService {
 
 // Tweet Messages
 
-message ReTweetRes {
-  string id = 1;
-  string userId = 2;
-  string hashtag = 3;
-  string title = 4;
-  string content = 5;
-  string imageUrl = 6;
-  string createdAt = 7;
-  string updatedAt = 8;
-  string retweet_tweet_id = 9;
-}
+
 
 message ReTweetReq {
-  string userId = 1;
-  string hashtag = 2;
-  string title = 3;
-  string content = 4;
-  string tweet_id = 5;
+  string tweet_id = 1;
+  string retweet_id = 2;
 }
 
 message Tweet {
