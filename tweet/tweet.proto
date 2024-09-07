@@ -14,7 +14,7 @@ service TweetService {
   rpc GetAllTweets(TweetFilter) returns (Tweets);
   rpc RecommendTweets(UserId) returns (Tweets);
   rpc GetNewTweets(UserId) returns (Tweets);
-  rpc ReTweet(ReTweetReq) returns (Message);
+  rpc ReTweet(ReTweetReq) returns (TweetResponse);
 
   // Subscribe
   rpc Follow(FollowReq) returns (FollowRes);
