@@ -66,6 +66,7 @@ message TweetResponse {
   string title = 4;
   string content = 5;
   string imageUrl = 6;
+  string like_count = 10;
   string createdAt = 7;
   string updatedAt = 8;
   string retweet_tweet_id = 9;
