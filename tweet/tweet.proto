@@ -28,7 +28,7 @@ service TweetService {
   rpc DeleteLike(LikeReq) returns (DLikeRes);
   rpc GetUserLikes(UserId) returns (TweetTitles);
   rpc GetCountTweetLikes(TweetId) returns (Count);
-  rpc MostLikedTweets(Void) returns (TweetResponse);
+  rpc MostLikedTweets(Void) returns (Tweet);
 
   // Comments
   rpc PostComment(Comment) returns (CommentRes);
@@ -42,12 +42,28 @@ service TweetService {
 }
 
 // Tweet Messages
-
-
+message ReTweetRes {
+  string id = 1;
+  string userId = 2;
+  string hashtag = 3;
+  string title = 4;
+  string content = 5;
+  string imageUrl = 6;
+  string tweet_id = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
 
 message ReTweetReq {
-  string tweet_id = 1;
-  string retweet_id = 2;
+  string id = 1;
+  string userId = 2;
+  string hashtag = 3;
+  string title = 4;
+  string content = 5;
+  string imageUrl = 6;
+  string createdAt = 7;
+  int64 likeCount = 8;
+  string tweet_id = 9;
 }
 
 message Tweet {
@@ -57,6 +73,8 @@ message Tweet {
   string title = 4;
   string content = 5;
   string imageUrl = 6;
+  string createdAt = 7;
+  int64 likeCount = 8;
 }
 
 message TweetResponse {
@@ -69,7 +87,6 @@ message TweetResponse {
   string like_count = 10;
   string createdAt = 7;
   string updatedAt = 8;
-  string retweet_tweet_id = 9;
 }
 
 message UpdateATweet {
