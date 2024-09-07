@@ -28,7 +28,7 @@ service TweetService {
   rpc DeleteLike(LikeReq) returns (DLikeRes);
   rpc GetUserLikes(UserId) returns (TweetTitles);
   rpc GetCountTweetLikes(TweetId) returns (Count);
-  rpc MostLikedTweets(Void) returns (Tweet);
+  rpc MostLikedTweets(Void) returns (TweetResponse);
 
   // Comments
   rpc PostComment(Comment) returns (CommentRes);
